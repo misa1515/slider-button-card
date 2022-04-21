@@ -50,6 +50,7 @@ export interface SliderConfig {
   toggle_on_click?: boolean;
   invert?: boolean;
   force_square: boolean;
+  tap_action?: ActionConfig;
 }
 
 export enum ActionButtonMode {
@@ -108,6 +109,9 @@ export const SliderConfigDefault: SliderConfig = {
   show_track: false,
   toggle_on_click: false,
   force_square: false,
+  tap_action: {
+    action: 'toggle'
+  },
 };
 
 export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
@@ -119,6 +123,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: false,
     toggle_on_click: false,
     force_square: false,
+    tap_action: {
+      action: 'toggle'
+    },
   }],
   [Domain.FAN, {
     direction: SliderDirections.LEFT_RIGHT,
@@ -128,6 +135,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: false,
     toggle_on_click: false,
     force_square: false,
+    tap_action: {
+      action: 'toggle'
+    },
   }],
   [Domain.SWITCH, {
     direction: SliderDirections.LEFT_RIGHT,
@@ -137,6 +147,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: false,
     toggle_on_click: true,
     force_square: false,
+    tap_action: {
+      action: 'toggle'
+    },
   }],
   [Domain.COVER, {
     direction: SliderDirections.TOP_BOTTOM,
@@ -147,6 +160,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: false,
     force_square: false,
     invert: true,
+    tap_action: {
+      action: 'toggle'
+    },
   }],
   [Domain.INPUT_BOOLEAN, {
     direction: SliderDirections.LEFT_RIGHT,
@@ -156,6 +172,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: false,
     toggle_on_click: true,
     force_square: false,
+    tap_action: {
+      action: 'toggle'
+    },
   }],
   [Domain.MEDIA_PLAYER, {
     direction: SliderDirections.LEFT_RIGHT,
@@ -165,6 +184,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: true,
     toggle_on_click: false,
     force_square: false,
+    tap_action: {
+      action: 'more-info'
+    },
   }],
   [Domain.LOCK, {
     direction: SliderDirections.LEFT_RIGHT,
@@ -174,6 +196,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: false,
     toggle_on_click: true,
     force_square: false,
+    tap_action: {
+      action: 'toggle'
+    },
   }],
   [Domain.CLIMATE, {
     direction: SliderDirections.LEFT_RIGHT,
@@ -183,6 +208,9 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     show_track: true,
     toggle_on_click: false,
     force_square: false,
+    tap_action: {
+      action: 'more-info'
+    },
   }],
 ]);
 

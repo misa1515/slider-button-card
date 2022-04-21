@@ -155,6 +155,11 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
              })}
              >
           <div class="slider"
+                @action=${ (e): void => this._handleAction(e, this.config.slider)}
+                 .actionHandler=${actionHandler({
+                   hasHold: false,
+                   hasDoubleClick: false,
+                 })}
                data-show-track="${this.config.slider?.show_track}"
                data-mode="${this.config.slider?.direction}"
                data-background="${this.config.slider?.background}"
