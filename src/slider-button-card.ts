@@ -155,11 +155,6 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
              })}
              >
           <div class="slider"
-                @action=${ (e): void => this._handleAction(e, this.config.slider)}
-                 .actionHandler=${actionHandler({
-                   hasHold: false,
-                   hasDoubleClick: false,
-                 })}
                data-show-track="${this.config.slider?.show_track}"
                data-mode="${this.config.slider?.direction}"
                data-background="${this.config.slider?.background}"
@@ -168,11 +163,14 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
                @pointermove=${this.onPointerMove}
                @pointerup=${this.onPointerUp}
           >
-            ${this.ctrl.hasToggle
-              ? html`
-                <div class="toggle-overlay" @click=${this.handleClick}></div>
-                `
-              : ''}
+
+                <div class="toggle-overlay" @action=${ (e): void => this._handleAction(e, this.config.slider)}
+           .actionHandler=${actionHandler({
+             hasHold: false,
+             hasDoubleClick: false,
+           })}
+           ></div>
+
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           
           </div>
@@ -292,13 +290,13 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
   }
 
   private async handleClick(ev: Event): Promise<void> {
-    if (this.ctrl.hasToggle && !this.ctrl.isUnavailable) {
+    //if (this.ctrl.hasToggle && !this.ctrl.isUnavailable) {
       ev.preventDefault();
       this.animateActionStart();
       this.ctrl.log('Toggle');
       await toggleEntity(this.hass, this.config.entity);
       // this.setStateValue(this.ctrl.toggleValue);
-    }
+    //}
   }
 
   private _toggle(): void {

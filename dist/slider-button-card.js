@@ -504,8 +504,6 @@ class Qt{constructor(t){this.classes=new Set,this.changed=!1,this.element=t;cons
              style=${re({"--slider-value":this.ctrl.percentage+"%","--slider-bg-filter":this.ctrl.style.slider.filter,"--slider-color":this.ctrl.style.slider.color,"--icon-filter":this.ctrl.style.icon.filter,"--icon-color":this.ctrl.style.icon.color})}
              >
           <div class="slider"
-                @action=${t=>this._handleAction(t,this.config.slider)}
-                 .actionHandler=${le({hasHold:!1,hasDoubleClick:!1})}
                data-show-track="${null===(i=this.config.slider)||void 0===i?void 0:i.show_track}"
                data-mode="${null===(o=this.config.slider)||void 0===o?void 0:o.direction}"
                data-background="${null===(s=this.config.slider)||void 0===s?void 0:s.background}"
@@ -514,9 +512,11 @@ class Qt{constructor(t){this.classes=new Set,this.changed=!1,this.element=t;cons
                @pointermove=${this.onPointerMove}
                @pointerup=${this.onPointerUp}
           >
-            ${this.ctrl.hasToggle?Pt`
-                <div class="toggle-overlay" @click=${this.handleClick}></div>
-                `:""}
+
+                <div class="toggle-overlay" @action=${t=>this._handleAction(t,this.config.slider)}
+           .actionHandler=${le({hasHold:!1,hasDoubleClick:!1})}
+           ></div>
+
             <div class="slider-bg"></div>
             <div class="slider-thumb"></div>           
           </div>
@@ -576,7 +576,7 @@ class Qt{constructor(t){this.classes=new Set,this.changed=!1,this.element=t;cons
             </svg>
                 `:""}
       </div>
-    `}_handleAction(t,e){var i;this.hass&&this.config&&t.detail.action&&("toggle"!==(null===(i=e.tap_action)||void 0===i?void 0:i.action)||this.ctrl.isUnavailable||this.animateActionStart(),x(this,this.hass,Object.assign(Object.assign({},e),{entity:this.config.entity}),t.detail.action))}async handleClick(t){this.ctrl.hasToggle&&!this.ctrl.isUnavailable&&(t.preventDefault(),this.animateActionStart(),this.ctrl.log("Toggle"),await k(this.hass,this.config.entity))}_toggle(){this.hass&&this.config&&x(this,this.hass,{tap_action:{action:"toggle"},entity:this.config.entity},"tap")}setStateValue(t){this.ctrl.log("setStateValue",t),this.updateValue(t,!1),this.ctrl.value=t,this.animateActionStart()}animateActionStart(){this.animateActionEnd(),this.action&&this.action.classList.add("loading")}animateActionEnd(){this.action&&(clearTimeout(this.actionTimeout),this.actionTimeout=setTimeout(()=>{this.action.classList.remove("loading")},750))}updateValue(t,e=!0){this.changing=e,this.changed=!e,this.ctrl.log("updateValue",t),this.ctrl.targetValue=t,this.button&&(this.button.classList.remove("off"),e?this.button.classList.add("changing"):(this.button.classList.remove("changing"),this.ctrl.isOff&&this.button.classList.add("off")),this.stateText&&(this.stateText.innerHTML=this.ctrl.isUnavailable?""+this.hass.localize("state.default.unavailable"):this.ctrl.label),this.button.style.setProperty("--slider-value",this.ctrl.percentage+"%"),this.button.style.setProperty("--slider-bg-filter",this.ctrl.style.slider.filter),this.button.style.setProperty("--slider-color",this.ctrl.style.slider.color),this.button.style.setProperty("--icon-filter",this.ctrl.style.icon.filter),this.button.style.setProperty("--icon-color",this.ctrl.style.icon.color),this.button.style.setProperty("--icon-rotate-speed",this.ctrl.style.icon.rotateSpeed||"0s"))}_showError(t){const e=document.createElement("hui-error-card");return e.setConfig({type:"error",error:t,origConfig:this.config}),Pt`
+    `}_handleAction(t,e){var i;this.hass&&this.config&&t.detail.action&&("toggle"!==(null===(i=e.tap_action)||void 0===i?void 0:i.action)||this.ctrl.isUnavailable||this.animateActionStart(),x(this,this.hass,Object.assign(Object.assign({},e),{entity:this.config.entity}),t.detail.action))}async handleClick(t){t.preventDefault(),this.animateActionStart(),this.ctrl.log("Toggle"),await k(this.hass,this.config.entity)}_toggle(){this.hass&&this.config&&x(this,this.hass,{tap_action:{action:"toggle"},entity:this.config.entity},"tap")}setStateValue(t){this.ctrl.log("setStateValue",t),this.updateValue(t,!1),this.ctrl.value=t,this.animateActionStart()}animateActionStart(){this.animateActionEnd(),this.action&&this.action.classList.add("loading")}animateActionEnd(){this.action&&(clearTimeout(this.actionTimeout),this.actionTimeout=setTimeout(()=>{this.action.classList.remove("loading")},750))}updateValue(t,e=!0){this.changing=e,this.changed=!e,this.ctrl.log("updateValue",t),this.ctrl.targetValue=t,this.button&&(this.button.classList.remove("off"),e?this.button.classList.add("changing"):(this.button.classList.remove("changing"),this.ctrl.isOff&&this.button.classList.add("off")),this.stateText&&(this.stateText.innerHTML=this.ctrl.isUnavailable?""+this.hass.localize("state.default.unavailable"):this.ctrl.label),this.button.style.setProperty("--slider-value",this.ctrl.percentage+"%"),this.button.style.setProperty("--slider-bg-filter",this.ctrl.style.slider.filter),this.button.style.setProperty("--slider-color",this.ctrl.style.slider.color),this.button.style.setProperty("--icon-filter",this.ctrl.style.icon.filter),this.button.style.setProperty("--icon-color",this.ctrl.style.icon.color),this.button.style.setProperty("--icon-rotate-speed",this.ctrl.style.icon.rotateSpeed||"0s"))}_showError(t){const e=document.createElement("hui-error-card");return e.setConfig({type:"error",error:t,origConfig:this.config}),Pt`
       ${e}
     `}getColorFromVariable(t){if(void 0!==t&&"var"===t.substring(0,3)){let e=window.getComputedStyle(this).getPropertyValue(t.substring(4).slice(0,-1)).trim();return e.length||(e=window.getComputedStyle(document.documentElement).getPropertyValue(t.substring(4).slice(0,-1)).trim()),e}return t}onPointerDown(t){t.preventDefault(),t.stopPropagation(),this.ctrl.isSliderDisabled||this.slider.setPointerCapture(t.pointerId)}onPointerUp(t){this.ctrl.isSliderDisabled||(this.setStateValue(this.ctrl.targetValue),this.slider.releasePointerCapture(t.pointerId))}onPointerMove(t){if(this.ctrl.isSliderDisabled)return;if(!this.slider.hasPointerCapture(t.pointerId))return;const{left:e,top:i,width:o,height:s}=this.slider.getBoundingClientRect(),r=this.ctrl.moveSlider(t,{left:e,top:i,width:o,height:s});this.ctrl.log("onPointerMove",r),this.updateValue(r)}connectedCallback(){super.connectedCallback()}disconnectedCallback(){super.disconnectedCallback()}static get styles(){return Jt`
     ha-card {
