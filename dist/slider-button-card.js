@@ -3982,6 +3982,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: false,
             toggle_on_click: false,
             force_square: false,
+            show_attribute: false,
         }],
     [Domain.FAN, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -3991,6 +3992,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: false,
             toggle_on_click: false,
             force_square: false,
+            show_attribute: false,
         }],
     [Domain.SWITCH, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -4000,6 +4002,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: false,
             toggle_on_click: true,
             force_square: false,
+            show_attribute: false,
         }],
     [Domain.COVER, {
             direction: SliderDirections.TOP_BOTTOM,
@@ -4010,6 +4013,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: false,
             force_square: false,
             invert: true,
+            show_attribute: false,
         }],
     [Domain.INPUT_BOOLEAN, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -4019,6 +4023,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: false,
             toggle_on_click: true,
             force_square: false,
+            show_attribute: false,
         }],
     [Domain.MEDIA_PLAYER, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -4028,6 +4033,8 @@ const SliderConfigDefaultDomain = new Map([
             show_track: true,
             toggle_on_click: false,
             force_square: false,
+            show_attribute: true,
+            attribute: "media_title",
         }],
     [Domain.LOCK, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -4037,6 +4044,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: false,
             toggle_on_click: true,
             force_square: false,
+            show_attribute: false,
         }],
     [Domain.CLIMATE, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -4046,6 +4054,7 @@ const SliderConfigDefaultDomain = new Map([
             show_track: true,
             toggle_on_click: false,
             force_square: false,
+            show_attribute: false,
         }],
 ]);
 var LightAttributes;
@@ -7506,13 +7515,14 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                       ` : html `
                       ${this.ctrl.label}
                     `}
-                  </span>`
+                  </span>
+                  `
             : ''}
 
               ${this.config.show_attribute
             ? html `
                   <span class="attribute">
-                  ${this.config.show_state
+                  ${this.config.show_state && this.ctrl.attributeLabel
                 ? html `  ·  `
                 : ''}
                 ${this.ctrl.attributeLabel}
@@ -7896,7 +7906,6 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
       white-space: nowrap;
       text-shadow: var(--state-text-shadow);
       transition: font-size 0.1s ease-in-out;
-      max-width: calc(100% - 2em);
     }
     
     /* --- SLIDER --- */    
