@@ -7882,7 +7882,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
         this.ctrl.clickPosition;
         let delta = this.ctrl.clickPosition - percentage;
         let newPercentage = this.ctrl.originalValue - delta;
-        newPercentage = normalize(newPercentage, 0, 100);
+        newPercentage = normalize(newPercentage, this.ctrl.min, this.ctrl.max);
         this.ctrl.log('oldPercentage', this.ctrl.originalValue);
         this.ctrl.log('clickPosition', this.ctrl.clickPosition);
         this.ctrl.log('onPointerMove', percentage);
