@@ -158,7 +158,7 @@ export class SliderButtonCard extends LitElement implements LovelaceCard {
                data-show-track="${this.config.slider?.show_track}"
                data-mode="${this.config.slider?.direction}"
                data-background="${this.config.slider?.background}"
-               data-is-toggle="${this.ctrl.hasToggle}"
+               data-disable-sliding="${this.ctrl.disableSliding}"
                @pointerdown=${this.onPointerDown}
                @pointermove=${this.onPointerMove}
                @pointerup=${this.onPointerUp}
