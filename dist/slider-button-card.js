@@ -7506,6 +7506,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                 `
             : ''}
 
+              <span class="oneliner">
               ${this.config.show_state
             ? html `
                   <span class="state">
@@ -7529,6 +7530,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
                   </span>
                 `
             : ''}
+              </span>
           </div>
     `;
     }
@@ -7855,7 +7857,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     /* --- LABEL --- */
     
     .name {
-      color: var(--label-color-on, var(--primary-text-color, white));      
+      color: var(--label-color-on, var(--primary-text-color, white));
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -7877,7 +7879,7 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     /* --- STATE --- */
     
     .state {      
-      color: var(--state-color-on, var(--label-badge-text-color, white));      
+      color: var(--state-color-on, var(--label-badge-text-color, white));
       text-overflow: ellipsis;
       white-space: nowrap;
       text-shadow: var(--state-text-shadow);
@@ -7901,13 +7903,29 @@ let SliderButtonCard = class SliderButtonCard extends LitElement {
     /* --- ATTRIBUTE --- */
 
     .attribute {      
-      color: var(--state-color-on, var(--label-badge-text-color, white));      
+      /*
+      color: var(--state-color-on, var(--label-badge-text-color, white));
       text-overflow: ellipsis;
+      overflow: hidden;
       white-space: nowrap;
       text-shadow: var(--state-text-shadow);
+      max-width: calc(50% -2em);
       transition: font-size 0.1s ease-in-out;
+      border: 1px solid red; 
+      */
     }
-    
+
+    .oneliner {      
+      color: var(--state-color-on, var(--label-badge-text-color, white));
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width:  20px;
+      width: 20px;
+      text-shadow: var(--state-text-shadow);
+      transition: font-size 0.1s ease-in-out;
+      /*border: 1px solid blue;*/
+    }
     /* --- SLIDER --- */    
     
     .slider {
