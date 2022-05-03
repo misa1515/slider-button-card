@@ -3949,6 +3949,8 @@ var Domain;
     Domain["CLIMATE"] = "climate";
     Domain["LOCK"] = "lock";
     Domain["AUTOMATION"] = "automation";
+    Domain["SENSOR"] = "sensor";
+    Domain["BINARY_SENSOR"] = "binary_sensor";
 })(Domain || (Domain = {}));
 const ActionButtonConfigDefault = {
     mode: ActionButtonMode.TOGGLE,
@@ -4110,6 +4112,24 @@ const SliderConfigDefaultDomain = new Map([
             tap_action: {
                 action: 'more-info'
             },
+        }],
+    [Domain.SENSOR, {
+            direction: SliderDirections.LEFT_RIGHT,
+            background: SliderBackground.SOLID,
+            use_state_color: false,
+            use_percentage_bg_opacity: false,
+            show_track: false,
+            toggle_on_click: true,
+            force_square: false,
+        }],
+    [Domain.BINARY_SENSOR, {
+            direction: SliderDirections.LEFT_RIGHT,
+            background: SliderBackground.SOLID,
+            use_state_color: false,
+            use_percentage_bg_opacity: false,
+            show_track: false,
+            toggle_on_click: true,
+            force_square: false,
         }],
 ]);
 var LightAttributes;
@@ -6295,6 +6315,40 @@ class SwitchController extends Controller {
     }
 }
 
+class SensorController extends Controller {
+    constructor() {
+        super(...arguments);
+        this._min = 0;
+        this._max = 1;
+        this._invert = false;
+        this._step = 1;
+    }
+    get _value() {
+        return this.stateObj.state;
+    }
+    get label() {
+        return "" + this._value;
+    }
+}
+
+class BinarySensorController extends Controller {
+    constructor() {
+        super(...arguments);
+        this._min = 0;
+        this._max = 1;
+        this._invert = false;
+        this._step = 1;
+    }
+    get _value() {
+        return !D.includes(this.stateObj.state)
+            ? 1
+            : 0;
+    }
+    get label() {
+        return this.stateObj.state;
+    }
+}
+
 class ControllerFactory {
     static getInstance(config) {
         const domain = f(config.entity);
@@ -6309,6 +6363,8 @@ class ControllerFactory {
             [Domain.MEDIA_PLAYER]: MediaController,
             [Domain.CLIMATE]: ClimateController,
             [Domain.LOCK]: LockController,
+            [Domain.SENSOR]: SensorController,
+            [Domain.BINARY_SENSOR]: BinarySensorController,
         };
         if (typeof mapping[domain] === 'undefined') {
             throw new Error(`Unsupported entity type: ${domain}`);

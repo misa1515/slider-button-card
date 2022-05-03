@@ -85,6 +85,8 @@ export enum Domain {
   CLIMATE = 'climate',
   LOCK = 'lock',
   AUTOMATION = 'automation',
+  SENSOR = 'sensor',
+  BINARY_SENSOR = 'binary_sensor',
 }
 
 export const ActionButtonConfigDefault: ActionButtonConfig = {
@@ -250,6 +252,24 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     tap_action: {
       action: 'more-info'
     },
+  }],
+  [Domain.SENSOR, {
+    direction: SliderDirections.LEFT_RIGHT,
+    background: SliderBackground.SOLID,
+    use_state_color: false,
+    use_percentage_bg_opacity: false,
+    show_track: false,
+    toggle_on_click: true,
+    force_square: false,
+  }],
+  [Domain.BINARY_SENSOR, {
+    direction: SliderDirections.LEFT_RIGHT,
+    background: SliderBackground.SOLID,
+    use_state_color: false,
+    use_percentage_bg_opacity: false,
+    show_track: false,
+    toggle_on_click: true,
+    force_square: false,
   }],
 ]);
 
