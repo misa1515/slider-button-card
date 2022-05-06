@@ -4119,8 +4119,11 @@ const SliderConfigDefaultDomain = new Map([
             use_state_color: false,
             use_percentage_bg_opacity: false,
             show_track: false,
-            toggle_on_click: true,
+            disable_sliding: true,
             force_square: false,
+            tap_action: {
+                action: 'more-info'
+            },
         }],
     [Domain.BINARY_SENSOR, {
             direction: SliderDirections.LEFT_RIGHT,
@@ -4128,8 +4131,11 @@ const SliderConfigDefaultDomain = new Map([
             use_state_color: false,
             use_percentage_bg_opacity: false,
             show_track: false,
-            toggle_on_click: true,
+            disable_sliding: true,
             force_square: false,
+            tap_action: {
+                action: 'more-info'
+            },
         }],
 ]);
 var LightAttributes;
