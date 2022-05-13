@@ -3951,6 +3951,7 @@ var Domain;
     Domain["AUTOMATION"] = "automation";
     Domain["SENSOR"] = "sensor";
     Domain["BINARY_SENSOR"] = "binary_sensor";
+    Domain["SCRIPT"] = "script";
 })(Domain || (Domain = {}));
 const ActionButtonConfigDefault = {
     mode: ActionButtonMode.TOGGLE,
@@ -4126,6 +4127,18 @@ const SliderConfigDefaultDomain = new Map([
             },
         }],
     [Domain.BINARY_SENSOR, {
+            direction: SliderDirections.LEFT_RIGHT,
+            background: SliderBackground.SOLID,
+            use_state_color: false,
+            use_percentage_bg_opacity: false,
+            show_track: false,
+            disable_sliding: true,
+            force_square: false,
+            tap_action: {
+                action: 'more-info'
+            },
+        }],
+    [Domain.SCRIPT, {
             direction: SliderDirections.LEFT_RIGHT,
             background: SliderBackground.SOLID,
             use_state_color: false,
@@ -6355,6 +6368,36 @@ class BinarySensorController extends Controller {
     }
 }
 
+class ScriptController extends Controller {
+    constructor() {
+        super(...arguments);
+        this._min = 0;
+        this._max = 1;
+        this._invert = false;
+    }
+    get _value() {
+        return !D.includes(this.stateObj.state)
+            ? 1
+            : 0;
+    }
+    set _value(value) {
+        const service = value > 0 ? 'turn_on' : 'turn_off';
+        this._hass.callService('script', service, {
+            // eslint-disable-next-line @typescript-eslint/camelcase
+            entity_id: this.stateObj.entity_id
+        });
+    }
+    get _step() {
+        return 1;
+    }
+    get label() {
+        if (this.percentage > 0) {
+            return this._hass.localize('component.script.state._.on');
+        }
+        return this._hass.localize('component.script.state._.off');
+    }
+}
+
 class ControllerFactory {
     static getInstance(config) {
         const domain = f(config.entity);
@@ -6371,6 +6414,7 @@ class ControllerFactory {
             [Domain.LOCK]: LockController,
             [Domain.SENSOR]: SensorController,
             [Domain.BINARY_SENSOR]: BinarySensorController,
+            [Domain.SCRIPT]: ScriptController,
         };
         if (typeof mapping[domain] === 'undefined') {
             throw new Error(`Unsupported entity type: ${domain}`);

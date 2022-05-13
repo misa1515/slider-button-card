@@ -87,6 +87,7 @@ export enum Domain {
   AUTOMATION = 'automation',
   SENSOR = 'sensor',
   BINARY_SENSOR = 'binary_sensor',
+  SCRIPT = 'script',
 }
 
 export const ActionButtonConfigDefault: ActionButtonConfig = {
@@ -266,6 +267,18 @@ export const SliderConfigDefaultDomain: Map<string, SliderConfig> = new Map([
     },
   }],
   [Domain.BINARY_SENSOR, {
+    direction: SliderDirections.LEFT_RIGHT,
+    background: SliderBackground.SOLID,
+    use_state_color: false,
+    use_percentage_bg_opacity: false,
+    show_track: false,
+    disable_sliding: true,
+    force_square: false,
+    tap_action: {
+      action: 'more-info'
+    },
+  }],
+  [Domain.SCRIPT, {
     direction: SliderDirections.LEFT_RIGHT,
     background: SliderBackground.SOLID,
     use_state_color: false,
