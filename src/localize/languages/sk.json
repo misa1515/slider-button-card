@@ -9,9 +9,11 @@
     "general": {
       "title": "Všeobecné",
       "entity": "Entita (požadovaná)",
+      "attribute": "Atribút (Voliteľné)",
       "name": "Názov (voliteľný)",
       "show_name": "Zobraziť názov?",
       "show_state": "Zobraziť stav?",
+      "show_attribute": "Zobraziť atribútt?",
       "compact": "Kompaktné?"
     },
     "icon": {
@@ -45,6 +47,7 @@
   },
   "direction": {
     "left-right": "Zľava doprava",
+    "right-left": "Zprava do ľava",
     "top-bottom": "Zhora nadol",
     "bottom-top": "Zdola nahor"
   },
